@@ -746,6 +746,13 @@
                         }
                     ]
                 },
+                "values": {
+                    "description": "Single value or list. Internally normalised to a list during import.",
+                    "type": "array",
+                    "items": {
+                        "type": ["number", "string"]
+                    }
+                },
                 "aggr": {
                     "type": "string",
                     "description": "Aggregation type (e.g. 'single', 'mean', 'min', 'max')."
@@ -760,7 +767,10 @@
                     "description": "Metric/binary prefix code used to derive the display unit prefix (e.g. '1e-3' -> milli/m, '0x1p20' -> mebi/Mi)."
                 }
             },
-            "required": ["value", "aggr", "base_units", "multiplier"],
+	    "oneOf": [
+		{"required": ["value", "aggr", "base_units", "multiplier"]},
+		{"required": ["values", "aggr", "base_units", "multiplier"]}
+	    ],
             "additionalProperties": {
                 "type": ["string", "number"]
             }
